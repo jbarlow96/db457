@@ -26,3 +26,4 @@ ReactDOM.render(
     </React.Fragment>
 </BrowserRouter>
 , document.getElementById('root'));
+// registerServiceWorker();
