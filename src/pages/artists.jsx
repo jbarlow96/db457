@@ -20,7 +20,8 @@ class Artists extends Component {
       .then(parsedJSON =>
         parsedJSON.results.map(artist => ({
           Fname: artist.Fname,
-          Lname: artist.Lname
+          Lname: artist.Lname,
+          Artist_rating: artist.Artist_rating
         }))
       )
       .then(artists =>
@@ -40,7 +41,7 @@ class Artists extends Component {
           <h3>Welcome to the Artists Page</h3>
           {data.map(artist => (
             <li>
-              {artist.Fname} {artist.Lname}
+              {artist.Fname} {artist.Lname} ⭐ {artist.Artist_rating}
             </li>
           ))}
         </section>
