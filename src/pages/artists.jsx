@@ -17,16 +17,35 @@ class Artists extends Component {
   fetchData = () => {
     fetch('http://localhost:4000/getartists') // Your URL here example http://localhost:4000/artists
       .then(response => response.json())
-      .then(parsedJSON => console.log('data:', parsedJSON))
+      .then(parsedJSON =>
+        parsedJSON.results.map(artist => ({
+          Fname: artist.Fname,
+          Lname: artist.Lname
+        }))
+      )
+      .then(artists =>
+        this.setState({
+          data: artists,
+          isLoading: false
+        })
+      )
       .catch(err => console.log('Error', err));
   };
 
   render() {
-    return <main>
-    <section>
-    <h3>Welcome to the Artists Page</h3>
-    </section>
-</main>;
+    const { isLoading, data } = this.state;
+    return (
+      <main>
+        <section>
+          <h3>Welcome to the Artists Page</h3>
+          {data.map(artist => (
+            <li>
+              {artist.Fname} {artist.Lname}
+            </li>
+          ))}
+        </section>
+      </main>
+    );
   }
 }
 export default Artists;
