@@ -15,11 +15,10 @@ class APICall extends Component {
   }
 
   fetchData = () => {
-    fetch('https://randomuser.me/api/?results=50') // Your URL here example) http://localhost:4000/artists
+    fetch('http://localhost:4000/getreservation') // Your URL here example) http://localhost:4000/artists
       .then(response => response.json())
-      .then(parsedJSON =>
-        console.log('data:', parsedJSON).catch(err => console.log('Error', err))
-      );
+      .then(parsedJSON => console.log('data:', parsedJSON))
+      .catch(err => console.log('Error', err));
   };
 
   render() {
