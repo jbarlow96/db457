@@ -138,7 +138,7 @@ export default class BookOnline extends Component {
                   />
                 </div>
                 <button type="submit" className="btn button btn-lg">
-                  Request Info
+                  Confirm Reservation
                 </button>
                 <h1>{this.state.responseSuccess}</h1>
               </form>
