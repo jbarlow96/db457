@@ -49,7 +49,9 @@ class Home extends Component {
             <h3>ADDRESS</h3>
 
             <div id ="bulletts_location">
-              <span class="glyphicon glyphicon-map-marker">   1603 Ridgeside Dr, Mount Airy, MD 21771</span>
+ 
+            <a href="https://www.google.com/maps/place/1603+Ridgeside+Dr,+Mt+Airy,+MD+21771/@39.3631833,-77.1650515,17z/data=!3m1!4b1!4m5!3m4!1s0x89c82c90557b29cf:0x2542b8b2d000b65!8m2!3d39.3631833!4d-77.1628574"><span class="glyphicon glyphicon-map-marker">   1603 Ridgeside Dr, Mount Airy, MD 21771</span></a>
+              
             </div>
             
             

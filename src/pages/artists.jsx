@@ -51,7 +51,7 @@ class Artists extends Component {
                                 <div class="row pt-md">
                                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
                                         <div class="img-box">
-                                            <img src={bullett} alt ="" style={{width: 300, height: 375}} class="img-responsive"/>
+                                            <img src={bullett} alt ="" style={{width: 210, height: 210}} class="img-responsive"/>
                                             <ul class="text-center">
                                             <a href="https://www.facebook.com/Bullettsink/?__tn__=%2Cdk%2CP-R&eid=ARB4HeullY6Q83SnuA2J4h7xYXEHZS6xP4trKdxnPpquQC5cQ3giinC4N3VwxIUSc0aMl_XCBj_wfrYJ&fref=tag" ><li><i class="fa fa-facebook"></i></li></a>
                                             <a href="https://www.instagram.com/bullettsinkshop/?hl=en" ><li><i class="fa fa-instagram"></i></li></a>
@@ -66,7 +66,8 @@ class Artists extends Component {
 
                                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
                                         <div class="img-box">
-                                            <img src={chris} alt ="" style={{width: 300, height: 375}} class="img-responsive"/>
+                                            <img src={chris} alt ="" style={{width: 210, height: 210}} class="img-responsive"/>
+                                            {/* old 300 x 375 */}
                                             <ul class="text-center">
                                             <a href="https://www.facebook.com/Bullettsink/?__tn__=%2Cdk%2CP-R&eid=ARB4HeullY6Q83SnuA2J4h7xYXEHZS6xP4trKdxnPpquQC5cQ3giinC4N3VwxIUSc0aMl_XCBj_wfrYJ&fref=tag"><li><i class="fa fa-facebook"></i></li></a>
                                             <a href="https://www.instagram.com/bullettsinkshop/?hl=en"><li><i class="fa fa-instagram"></i></li></a>
@@ -81,7 +82,7 @@ class Artists extends Component {
 
                                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
                                         <div class="img-box">
-                                            <img src={tommy} alt="" style={{width: 300, height: 375}} class="img-responsive"/>
+                                            <img src={tommy} alt="" style={{width: 210, height: 210}} class="img-responsive"/>
                                             <ul class="text-center">
                                             <a href="https://www.facebook.com/Bullettsink/?__tn__=%2Cdk%2CP-R&eid=ARB4HeullY6Q83SnuA2J4h7xYXEHZS6xP4trKdxnPpquQC5cQ3giinC4N3VwxIUSc0aMl_XCBj_wfrYJ&fref=tag"><li><i class="fa fa-facebook"></i></li></a>
                                             <a href="https://www.instagram.com/wtc3art/?hl=en"><li><i class="fa fa-instagram"></i></li></a>
@@ -96,7 +97,7 @@ class Artists extends Component {
 
                                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
                                     <div class="img-box">
-                                        <img src={blank} alt="" style={{width: 300, height: 375}} class="img-responsive"/>
+                                        <img src={blank} alt="" style={{width: 210, height: 210}} class="img-responsive"/>
                                         <ul class="text-center">
                                         <a href="https://www.facebook.com/Bullettsink/?__tn__=%2Cdk%2CP-R&eid=ARB4HeullY6Q83SnuA2J4h7xYXEHZS6xP4trKdxnPpquQC5cQ3giinC4N3VwxIUSc0aMl_XCBj_wfrYJ&fref=tag"><li><i class="fa fa-facebook"></i></li></a>
                                         <a href="https://www.instagram.com/dennywilliams629/?hl=en"><li><i class="fa fa-instagram"></i></li></a>
