@@ -73,7 +73,7 @@ class Artists extends Component {
  
                                             </ul>
                                         </div>
-                                    <h1>Christopher Spoon  </h1>
+                                    <h1>Chris Spoon  </h1>
                                     <h2>Tattoo Artist</h2>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                                     </div>
