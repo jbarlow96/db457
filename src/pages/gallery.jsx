@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
 //import { BrowserRouter, Route } from 'react-router-dom';
+import gal1 from '../img/Gallery/gal1.jpg';
+import gal2 from '../img/Gallery/gal2.jpg';
+import gal3 from '../img/Gallery/gal3.jpg';
+import gal4 from '../img/Gallery/gal4.jpg';
+import gal5 from '../img/Gallery/gal5.jpg';
+import gal6 from '../img/Gallery/gal6.jpg';
+import gal7 from '../img/Gallery/gal7.jpg';
+import gal8 from '../img/Gallery/gal8.jpg';
+import gal9 from '../img/Gallery/gal9.jpg';
+//import gal10 from '../img/Gallery/gal10.jpg';
+//import sample1 from '../img/Samples/sample1.jpg';
+//import sample2 from '../img/Samples/sample2.jpg';
 
 class Gallery extends Component {
 
@@ -26,44 +38,52 @@ class Gallery extends Component {
 
 
           <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter hdpe">
-              <img src="cosc457DbProject/tattoo_site/client/src/img/Gallery/gal1.jpg" class="img-responsive"/>
+              <img src={gal1} alt="" class="img-responsive"/>
           </div>
 
           <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 ">
-              <img src="img/Gallery/gal2.jpg" class="img-responsive"/>
+              <img src={gal2} alt="" class="img-responsive"/>
           </div>
 
           <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 ">
-              <img src={"./img/Gallery/gal3.jpg"} class="img-responsive"/>
+              <img src={gal3} alt="" class="img-responsive"/>
           </div>
 
           <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 ">
-              <img src={"/img/Gallery/gal4.jpg"} class="img-responsive"/>
+              <img src={gal4} alt="" class="img-responsive"/>
           </div>
 
           <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 ">
-              <img src={'../img/Gallery/gal5.jpg'} class="img-responsive"/>
+              <img src={gal5} alt="" class="img-responsive"/>
           </div>
 
           <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter irrigation">
-              <img src="../img/Gallery/gal6.jpg" class="img-responsive"/>
+              <img src={gal6} alt="" class="img-responsive"/>
           </div>
 
           <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter spray">
-              <img src="../img/Gallery/gal7.jpg" class="img-responsive"/>
+              <img src={gal7} alt="" class="img-responsive"/>
           </div>
 
           <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter irrigation">
-              <img src="../img/Gallery/gal8.jpg" class="img-responsive"/>
+              <img src={gal8} alt="" class="img-responsive"/>
           </div>
 
           <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter irrigation">
-              <img src="../img/Gallery/gal9.jpg" class="img-responsive"/>
+              <img src={gal9} alt="" class="img-responsive"/>
+          </div>
+
+          {/* <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter hdpe">
+              <img src={gal10} class="img-responsive"/>
           </div>
 
           <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter hdpe">
-              <img src="../img/Gallery/gal10.jpg" class="img-responsive"/>
+              <img src={sample1} class="img-responsive"/>
           </div>
+
+          <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter hdpe">
+              <img src={sample2} class="img-responsive"/>
+          </div> */}
 
       </div>
   </div>
@@ -73,6 +93,3 @@ class Gallery extends Component {
 }
 
 export default Gallery;
-
-
-
