@@ -24,7 +24,16 @@ export default class BookOnline extends Component {
       Artist_id: '',
       responseArtSuccess: null,
       responseArtDeleted: null,
-      responseArtUpdated: null
+      responseArtUpdated: null,
+      // location
+      State: '',
+      City: '',
+      Address: '',
+      Zip: '',
+      Shop_id: '',
+      responseLocationSuccess: null,
+      responseLocationDeleted: null,
+      responseLocationUpdated: null
      
     };
   }
@@ -189,8 +198,77 @@ export default class BookOnline extends Component {
         })
         .catch(err => console.log('ERROR: ', err));
       };
+
+      // add location
+      requestLocationInfo = e => {
+        e.preventDefault();
+        const locationBody = {
+          Shop_id: this.state.Shop_id,
+          State: this.state.State,
+          City: this.state.City,
+          Address: this.state.Address,
+          Zip: this.state.Zip
+        };
+        fetch('http://localhost:4000/addlocation', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(locationBody)
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log('RESPONSE: ', data);
+            this.setState({ responseLocationSuccess: data.success });
+          })
+          .catch(err => console.log('ERROR: ', err));
+      };
+
+      // Location Update
+      requestLocationUpdate = e => {
+        e.preventDefault();
+        const locationBody = {
+          Shop_id: this.state.Shop_id,
+          State: this.state.State,
+          City: this.state.City,
+          Address: this.state.Address,
+          Zip: this.state.Zip
+        };
+        fetch('http://localhost:4000/updatelocation/'+this.state.Shop_id, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(locationBody)
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log('RESPONSE: ', data);
+            this.setState({ responseLocationUpdated: data.success });
+          })
+          .catch(err => console.log('ERROR: ', err));
+        };
+
+        // Delete Location
+        requestLocationDelete = e =>{
+          e.preventDefault();
+        console.log('http://localhost:4000/deletelocation/'+this.state.Shop_id);
+        fetch('http://localhost:4000/deletelocation/'+this.state.Shop_id, {
+          method: 'GET',
+         
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: undefined
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log('RESPONSE: ', data);
+            this.setState({ responseLocationDeleted: data.success });
+          })
+          .catch(err => console.log('ERROR: ', err));
+        };
   
-      //
   render() {
     return (
       <main>
@@ -624,6 +702,292 @@ export default class BookOnline extends Component {
             </div>
           </div>
         </section>
+
+
+        <section>
+          <div className="page-header">
+            <h2>Add Location </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestLocationInfo}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Shop_id"
+                    id="Shop_id"
+                    placeholder="Enter #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+              <div className="form-group">
+                  <label htmlFor="State">State</label>
+                  <select
+                    className="form-control input-lg"
+                    name="State"
+                    id="State"
+                    required
+                    onChange={this.handleChange}
+                  >
+                    <option value="">Please Select...</option>
+                    <option value="AL">AL</option>
+                    <option value="AK">AK</option>
+                    <option value="AR">AR</option>
+                    <option value="AZ">AZ</option>
+                    <option value="CA">CA</option>
+                    <option value="CO">CO</option>
+                    <option value="CT">CT</option>
+                    <option value="DE">DE</option>
+                    <option value="FL">FL</option>
+                    <option value="GA">GA</option>
+                    <option value="HI">HI</option>
+                    <option value="ID">ID</option>
+                    <option value="IA">IA</option>
+                    <option value="IL">IL</option>
+                    <option value="IN">IN</option>
+                    <option value="KS">KS</option>
+                    <option value="KY">KY</option>
+                    <option value="LA">LA</option>
+                    <option value="MA">MA</option>
+                    <option value="MD">MD</option>
+                    <option value="ME">ME</option>
+                    <option value="MI">MI</option>
+                    <option value="MN">MN</option>
+                    <option value="MO">MO</option>
+                    <option value="MS">MS</option>
+                    <option value="MT">MT</option>
+                    <option value="NC">NC</option>
+                    <option value="ND">ND</option>
+                    <option value="NE">NE</option>
+                    <option value="NH">NH</option>
+                    <option value="NJ">NJ</option>
+                    <option value="NM">NM</option>
+                    <option value="NV">NV</option>
+                    <option value="NY">NY</option>
+                    <option value="OH">OH</option>
+                    <option value="OK">OK</option>
+                    <option value="OR">OR</option>
+                    <option value="PA">PA</option>
+                    <option value="RI">RI</option>
+                    <option value="SC">SC</option>
+                    <option value="SD">SD</option>
+                    <option value="TN">TN</option>
+                    <option value="TX">TX</option>
+                    <option value="UT">UT</option>
+                    <option value="VT">VT</option>
+                    <option value="VA">VA</option>
+                    <option value="WA">WA</option>
+                    <option value="WI">WI</option>
+                    <option value="WV">WV</option>
+                    <option value="WY">WY</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="City"
+                    id="City"
+                    placeholder="City"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="Address"
+                    id="Address"
+                    placeholder="Address"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Zip"
+                    id="Zip"
+                    placeholder="Zipcode"
+                    maxLength="5"
+                    minLength="5"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Confirm Location
+                </button>
+                <h1>{this.state.responseLocationSuccess}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section>
+          <div className="page-header">
+            <h2>Update Location </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestLocationUpdate}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Shop_id"
+                    id="Shop_id"
+                    placeholder="Enter #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="State">State</label>
+                  <select
+                    className="form-control input-lg"
+                    name="State"
+                    id="State"
+                    required
+                    onChange={this.handleChange}
+                  >
+                    <option value="">Please Select...</option>
+                    <option value="AL">AL</option>
+                    <option value="AK">AK</option>
+                    <option value="AR">AR</option>
+                    <option value="AZ">AZ</option>
+                    <option value="CA">CA</option>
+                    <option value="CO">CO</option>
+                    <option value="CT">CT</option>
+                    <option value="DE">DE</option>
+                    <option value="FL">FL</option>
+                    <option value="GA">GA</option>
+                    <option value="HI">HI</option>
+                    <option value="ID">ID</option>
+                    <option value="IA">IA</option>
+                    <option value="IL">IL</option>
+                    <option value="IN">IN</option>
+                    <option value="KS">KS</option>
+                    <option value="KY">KY</option>
+                    <option value="LA">LA</option>
+                    <option value="MA">MA</option>
+                    <option value="MD">MD</option>
+                    <option value="ME">ME</option>
+                    <option value="MI">MI</option>
+                    <option value="MN">MN</option>
+                    <option value="MO">MO</option>
+                    <option value="MS">MS</option>
+                    <option value="MT">MT</option>
+                    <option value="NC">NC</option>
+                    <option value="ND">ND</option>
+                    <option value="NE">NE</option>
+                    <option value="NH">NH</option>
+                    <option value="NJ">NJ</option>
+                    <option value="NM">NM</option>
+                    <option value="NV">NV</option>
+                    <option value="NY">NY</option>
+                    <option value="OH">OH</option>
+                    <option value="OK">OK</option>
+                    <option value="OR">OR</option>
+                    <option value="PA">PA</option>
+                    <option value="RI">RI</option>
+                    <option value="SC">SC</option>
+                    <option value="SD">SD</option>
+                    <option value="TN">TN</option>
+                    <option value="TX">TX</option>
+                    <option value="UT">UT</option>
+                    <option value="VT">VT</option>
+                    <option value="VA">VA</option>
+                    <option value="WA">WA</option>
+                    <option value="WI">WI</option>
+                    <option value="WV">WV</option>
+                    <option value="WY">WY</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="City"
+                    id="City"
+                    placeholder="City"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="Address"
+                    id="Address"
+                    placeholder="Address"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Zip"
+                    id="Zip"
+                    placeholder="Zipcode"
+                    maxLength="5"
+                    minLength="5"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Update Location
+                </button>
+                <h1>{this.state.responseLocationUpdated}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section>
+          <div className="page-header">
+            <h2>Delete Location </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestLocationDelete}>
+              <div className="form-group">
+                  <label htmlFor="Location">SHOP ID</label>
+                  <input
+                    type="number"
+                    name="Shop_id"
+                    id="Shop_id"
+                    placeholder="Shop ID"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+        
+          
+                <button type="submit" className="btn button btn-lg">
+                  Delete Location
+                </button>
+                <h1>{this.state.responseLocationDeleted}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
 
       </main>
     );
