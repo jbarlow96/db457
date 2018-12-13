@@ -5,21 +5,23 @@ export default class BookOnline extends Component {
     super(props);
 
     this.state = {
+      // reservation
       firstName: '',
       lastName: '',
       email: '',
       phoneNum: '',
       artist: '',
       date: '',
-      Res_id: '',//just added
+      Res_id: '',
+      responseSuccess: null,
+      responseDeleted:null,
+      responseUpdated:null,
+      // artist 
       Fname: '',
       Lname: '',
       Shop_id: '',
       Artist_rating: '',
       Artist_id: '',
-      responseSuccess: null,
-      responseDeleted:null,
-      responseUpdated:null,
       responseArtSuccess: null,
       responseArtDeleted: null,
       responseArtUpdated: null
