@@ -33,7 +33,15 @@ export default class BookOnline extends Component {
       Shop_id: '',
       responseLocationSuccess: null,
       responseLocationDeleted: null,
-      responseLocationUpdated: null
+      responseLocationUpdated: null,
+      // Inventory
+      Equip_name: '',
+      Price: '',
+      Equip_id: '',
+      responseInventorySuccess: null,
+      responseInventoryDeleted: null,
+      responseInventoryUpdated: null
+
      
     };
   }
@@ -265,6 +273,72 @@ export default class BookOnline extends Component {
           .then(data => {
             console.log('RESPONSE: ', data);
             this.setState({ responseLocationDeleted: data.success });
+          })
+          .catch(err => console.log('ERROR: ', err));
+        };
+
+        // add inventory
+        requestInventoryInfo = e => {
+          e.preventDefault();
+          const inventoryBody = {
+            Equip_id: this.state.Equip_id,
+            Equip_name: this.state.Equip_name,
+            Price: this.state.Price
+          };
+          fetch('http://localhost:4000/addinventory', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(inventoryBody)
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log('RESPONSE: ', data);
+              this.setState({ responseInventorySuccess: data.success });
+            })
+            .catch(err => console.log('ERROR: ', err));
+        };
+
+        // update inventory
+        requestInventoryUpdate = e => {
+          e.preventDefault();
+          const inventoryBody = {
+            Equip_id: this.state.Equip_id,
+            Equip_name: this.state.Equip_name,
+            Price: this.state.Price
+          };
+          fetch('http://localhost:4000/updateinventory/'+this.state.Equip_id, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(inventoryBody)
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log('RESPONSE: ', data);
+              this.setState({ responseInventoryUpdated: data.success });
+            })
+            .catch(err => console.log('ERROR: ', err));
+          };
+
+        // delete inventory
+        requestInventoryDelete = e =>{
+          e.preventDefault();
+        console.log('http://localhost:4000/deleteinventory/'+this.state.Equip_id);
+        fetch('http://localhost:4000/deleteinventory/'+this.state.Equip_id, {
+          method: 'GET',
+         
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: undefined
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log('RESPONSE: ', data);
+            this.setState({ responseInventoryDeleted: data.success });
           })
           .catch(err => console.log('ERROR: ', err));
         };
@@ -692,8 +766,6 @@ export default class BookOnline extends Component {
                     onChange={this.handleChange}
                   />
                 </div>
-        
-          
                 <button type="submit" className="btn button btn-lg">
                   Delete Artist
                 </button>
@@ -977,8 +1049,6 @@ export default class BookOnline extends Component {
                     onChange={this.handleChange}
                   />
                 </div>
-        
-          
                 <button type="submit" className="btn button btn-lg">
                   Delete Location
                 </button>
@@ -987,6 +1057,140 @@ export default class BookOnline extends Component {
             </div>
           </div>
         </section>
+
+
+        <section>
+          <div className="page-header">
+            <h2>Add Inventory </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestInventoryInfo}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Equip_id"
+                    id="Equip_id"
+                    placeholder="Enter #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="Equip_name"
+                    id="Equip_name"
+                    placeholder="Equipment Name"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Price"
+                    id="Price"
+                    placeholder="Price"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Create Inventory
+                </button>
+                <h1>{this.state.responseInventorySuccess}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section>
+          <div className="page-header">
+            <h2>Update Inventory </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestInventoryUpdate}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Equip_id"
+                    id="Equip_id"
+                    placeholder="Enter #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="Equip_name"
+                    id="Equip_name"
+                    placeholder="Equipment Name"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Price"
+                    id="Price"
+                    placeholder="Price"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Update Inventory
+                </button>
+                <h1>{this.state.responseInventoryUpdated}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section>
+          <div className="page-header">
+            <h2>Delete Inventory </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestInventoryDelete}>
+              <div className="form-group">
+                  <label htmlFor="Inventory">Equipment ID</label>
+                  <input
+                    type="number"
+                    name="Equip_id"
+                    id="Equip_id"
+                    placeholder="Equipment ID"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Delete Inventory
+                </button>
+                <h1>{this.state.responseInventoryDeleted}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+        
 
 
       </main>
