@@ -73,10 +73,18 @@ export default class BookOnline extends Component {
       Equip_id: '',
       responsePiercingSuccess: null,
       responsePiercingUpdated: null,
-      responsePiercingDeleted: null
-
-
-     
+      responsePiercingDeleted: null,
+      // Tattoo
+      Tat_no: '', 
+      Cust_id: '',
+      Color: '',
+      Size: '',
+      Est_time: '',
+      Shop_id: '',
+      Equip_id: '',
+      responseTattooSuccess: null,
+      responseTattooUpdated: null,
+      responseTattooDeleted: null
     };
   }
 
@@ -612,6 +620,79 @@ export default class BookOnline extends Component {
               .catch(err => console.log('ERROR: ', err));
             };
 
+            // Add Tattoo
+            requestTattooInfo = e => {
+              e.preventDefault();
+              const tattooBody = {
+                Tat_no: this.state.Tat_no, 
+                Cust_id: this.state.Cust_id,
+                Color: this.state.Color,
+                Size: this.state.Size,
+                Est_time: this.state.Est_time,
+                Shop_id: this.state.Shop_id,
+                Equip_id: this.state.Equip_id
+              };
+              fetch('http://localhost:4000/tattoo', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(tattooBody)
+              })
+                .then(response => response.json())
+                .then(data => {
+                  console.log('RESPONSE: ', data);
+                  this.setState({ responseTattooSuccess: data.success });
+                })
+                .catch(err => console.log('ERROR: ', err));
+              };
+
+              // Update Tattoo
+              requestTattooUpdate = e => {
+                e.preventDefault();
+                const tattooBody = {
+                  Tat_no: this.state.Tat_no, 
+                  Cust_id: this.state.Cust_id,
+                  Color: this.state.Color,
+                  Size: this.state.Size,
+                  Est_time: this.state.Est_time,
+                  Shop_id: this.state.Shop_id,
+                  Equip_id: this.state.Equip_id
+                };
+                fetch('http://localhost:4000/updatetattoo/'+this.state.Tat_no, {
+                  method: 'PATCH',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(tattooBody)
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    console.log('RESPONSE: ', data);
+                    this.setState({ responseTattooUpdated: data.success });
+                  })
+                  .catch(err => console.log('ERROR: ', err));
+                };
+
+                // Delete Tattoo
+                requestTattooDelete = e =>{
+                  e.preventDefault();
+                console.log('http://localhost:4000/deletetattoo/'+this.state.Tat_no);
+                fetch('http://localhost:4000/deletetattoo/'+this.state.Tat_no, {
+                  method: 'GET',
+                 
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: undefined
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    console.log('RESPONSE: ', data);
+                    this.setState({ responseTattooDeleted: data.success });
+                  })
+                  .catch(err => console.log('ERROR: ', err));
+                };
 
   render() {
     return (
@@ -2024,6 +2105,238 @@ export default class BookOnline extends Component {
                   Delete Piercing
                 </button>
                 <h1>{this.state.responsePiercingDeleted}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section>
+          <div className="page-header">
+            <h2>Create Tattoo </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestTattooInfo}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Tat_no"
+                    id="Tat_no"
+                    placeholder="Enter Tattoo #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Cust_id"
+                    id="Cust_id"
+                    placeholder="Enter Cust #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Color"
+                    id="Color"
+                    placeholder="Enter Color #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Size"
+                    id="Size"
+                    placeholder="Enter Size #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Est_time"
+                    id="Est_time"
+                    placeholder="EST # of hours"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Shop_id"
+                    id="Shop_id"
+                    placeholder="Enter Location #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Equip_id"
+                    id="Equip_id"
+                    placeholder="Equipment ID #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Create Tattoo
+                </button>
+                <h1>{this.state.responseTattooSuccess}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+        <section>
+          <div className="page-header">
+            <h2>Update Tattoo </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestTattooUpdate}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Tat_no"
+                    id="Tat_no"
+                    placeholder="Enter Tattoo #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Cust_id"
+                    id="Cust_id"
+                    placeholder="Enter Cust #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Color"
+                    id="Color"
+                    placeholder="Enter Color #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Size"
+                    id="Size"
+                    placeholder="Enter Size #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Est_time"
+                    id="Est_time"
+                    placeholder="EST # of hours"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Shop_id"
+                    id="Shop_id"
+                    placeholder="Enter Location #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Equip_id"
+                    id="Equip_id"
+                    placeholder="Equipment ID #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Update Tattoo
+                </button>
+                <h1>{this.state.responseTattooUpdated}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+        <section>
+          <div className="page-header">
+            <h2>Delete Tattoo </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestTattooDelete}>
+              <div className="form-group">
+                  <label htmlFor="Inventory">Piercing No</label>
+                  <input
+                    type="number"
+                    name="Tat_no"
+                    id="Tat_no"
+                    placeholder="Enter Tattoo Number"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Delete Tattoo
+                </button>
+                <h1>{this.state.responseTattooDeleted}</h1>
               </form>
             </div>
           </div>
