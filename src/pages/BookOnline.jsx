@@ -84,7 +84,19 @@ export default class BookOnline extends Component {
       Equip_id: '',
       responseTattooSuccess: null,
       responseTattooUpdated: null,
-      responseTattooDeleted: null
+      responseTattooDeleted: null,
+      // Result
+      Result_id: '',
+      Shop_id: '',
+      Cust_id: '',
+      Artist_id: '',
+      Res_type: '',
+      Res_date: '',
+      Start_time: '',
+      End_time: '',
+      responseResultSuccess: null,
+      responseResultUpdated: null,
+      responseResultDeleted: null
     };
   }
 
@@ -94,6 +106,7 @@ export default class BookOnline extends Component {
     });
   };
 
+  // add reservation
   requestInfo = e => {
     e.preventDefault();
     const reservationBody = {
@@ -118,7 +131,7 @@ export default class BookOnline extends Component {
       })
       .catch(err => console.log('ERROR: ', err));
   };
-      //ADDING Update
+      // Update Reservation
       requestUpdate = e =>{
         e.preventDefault();
         const reservationBody = {
@@ -146,7 +159,8 @@ export default class BookOnline extends Component {
         })
         .catch(err => console.log('ERROR: ', err));
     };
-  //---------------------------Adding-Delete----------------------
+
+  // Delete Reservation
   requestDelete = e =>{
     e.preventDefault();
   //   const reservationBody = {
@@ -690,6 +704,82 @@ export default class BookOnline extends Component {
                   .then(data => {
                     console.log('RESPONSE: ', data);
                     this.setState({ responseTattooDeleted: data.success });
+                  })
+                  .catch(err => console.log('ERROR: ', err));
+                };
+
+                // Add Result
+                requestResultInfo = e => {
+                  e.preventDefault();
+                  const resultBody = {
+                    Result_id: this.state.Result_id, 
+                    Shop_id: this.state.Shop_id,
+                    Cust_id: this.state.Cust_id,
+                    Artist_id: this.state.Artist_id,
+                    Res_type: this.state.Res_type,
+                    Res_date: this.state.Res_date,
+                    Start_time: this.state.Start_time,
+                    End_time: this.state.End_time
+                  };
+                  fetch('http://localhost:4000/result', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(resultBody)
+                  })
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log('RESPONSE: ', data);
+                      this.setState({ responseResultSuccess: data.success });
+                    })
+                    .catch(err => console.log('ERROR: ', err));
+                  };
+
+                // Update Result
+                requestResultUpdate = e => {
+                  e.preventDefault();
+                  const resultBody = {
+                    Result_id: this.state.Result_id, 
+                    Shop_id: this.state.Shop_id,
+                    Cust_id: this.state.Cust_id,
+                    Artist_id: this.state.Artist_id,
+                    Res_type: this.state.Res_type,
+                    Res_date: this.state.Res_date,
+                    Start_time: this.state.Start_time,
+                    End_time: this.state.End_time
+                  };
+                  fetch('http://localhost:4000/updateresult/'+this.state.Result_id, {
+                    method: 'PATCH',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(resultBody)
+                  })
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log('RESPONSE: ', data);
+                      this.setState({ responseResultUpdated: data.success });
+                    })
+                    .catch(err => console.log('ERROR: ', err));
+                  };
+
+                // Delete Result
+                requestResultDelete = e =>{
+                  e.preventDefault();
+                console.log('http://localhost:4000/deleteresult/'+this.state.Result_id);
+                fetch('http://localhost:4000/deleteresult/'+this.state.Result_id, {
+                  method: 'GET',
+                 
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: undefined
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    console.log('RESPONSE: ', data);
+                    this.setState({ responseResultDeleted: data.success });
                   })
                   .catch(err => console.log('ERROR: ', err));
                 };
@@ -2180,17 +2270,20 @@ export default class BookOnline extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <input
-                    type="number"
-                    name="Shop_id"
-                    id="Shop_id"
-                    placeholder="Enter Location #"
-                    maxLength="12"
-                    className="form-control input-lg"
-                    required
-                    onChange={this.handleChange}
-                  />
-                </div>
+                                <label htmlFor="Shop_id">Shop_id</label>
+                                <select
+                                    className="form-control input-lg"
+                                    name="Shop_id"
+                                    id="Shop_id"
+                                    required
+                                    onChange={this.handleChange}
+                                >
+                                    <option value="">Please Select...</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
                 <div className="form-group">
                   <input
                     type="number"
@@ -2281,17 +2374,20 @@ export default class BookOnline extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <input
-                    type="number"
-                    name="Shop_id"
-                    id="Shop_id"
-                    placeholder="Enter Location #"
-                    maxLength="12"
-                    className="form-control input-lg"
-                    required
-                    onChange={this.handleChange}
-                  />
-                </div>
+                                <label htmlFor="Shop_id">Shop_id</label>
+                                <select
+                                    className="form-control input-lg"
+                                    name="Shop_id"
+                                    id="Shop_id"
+                                    required
+                                    onChange={this.handleChange}
+                                >
+                                    <option value="">Please Select...</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
                 <div className="form-group">
                   <input
                     type="number"
@@ -2337,6 +2433,271 @@ export default class BookOnline extends Component {
                   Delete Tattoo
                 </button>
                 <h1>{this.state.responseTattooDeleted}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+        <section>
+          <div className="page-header">
+            <h2>Create Result </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestResultInfo}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Result_id"
+                    id="Result_id"
+                    placeholder="Enter Result #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                                <label htmlFor="Shop_id">Shop_id</label>
+                                <select
+                                    className="form-control input-lg"
+                                    name="Shop_id"
+                                    id="Shop_id"
+                                    required
+                                    onChange={this.handleChange}
+                                >
+                                    <option value="">Please Select...</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Cust_id"
+                    id="Cust_id"
+                    placeholder="Enter Cust #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Artist_id"
+                    id="Artist_id"
+                    placeholder="Enter Artist #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="Res_type">Reservation Type</label>
+                  <select
+                    className="form-control input-lg"
+                    name="Res_type"
+                    id="Res_type"
+                    required
+                    onChange={this.handleChange}
+                  >
+                    <option value="">Please Select...</option>
+                    <option value="Tattoo">Tattoo</option>
+                    <option value="Piercing">Piercing</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="Res_date">Reservation Date</label>
+                  <input
+                    type="Date"
+                    name="Res_date"
+                    id="Res_date"
+                    placeholder="MM/DD/YYYY"
+                    maxLength="10"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="Start_time">Start Time</label>
+                  <input
+                    type="time"
+                    name="Start_time"
+                    id="Start_time"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="End_time">End Time</label>
+                  <input
+                    type="time"
+                    name="End_time"
+                    id="End_time"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Create Result
+                </button>
+                <h1>{this.state.responseResultSuccess}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section>
+          <div className="page-header">
+            <h2>Update Result </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestResultUpdate}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Result_id"
+                    id="Result_id"
+                    placeholder="Enter Result #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                                <label htmlFor="Shop_id">Shop_id</label>
+                                <select
+                                    className="form-control input-lg"
+                                    name="Shop_id"
+                                    id="Shop_id"
+                                    required
+                                    onChange={this.handleChange}
+                                >
+                                    <option value="">Please Select...</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Cust_id"
+                    id="Cust_id"
+                    placeholder="Enter Cust #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Artist_id"
+                    id="Artist_id"
+                    placeholder="Enter Artist #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="Res_type">Reservation Type</label>
+                  <select
+                    className="form-control input-lg"
+                    name="Res_type"
+                    id="Res_type"
+                    required
+                    onChange={this.handleChange}
+                  >
+                    <option value="">Please Select...</option>
+                    <option value="Tattoo">Tattoo</option>
+                    <option value="Piercing">Piercing</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="Res_date">Reservation Date</label>
+                  <input
+                    type="Date"
+                    name="Res_date"
+                    id="Res_date"
+                    placeholder="MM/DD/YYYY"
+                    maxLength="10"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="Start_time">Start Time</label>
+                  <input
+                    type="time"
+                    name="Start_time"
+                    id="Start_time"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="End_time">End Time</label>
+                  <input
+                    type="time"
+                    name="End_time"
+                    id="End_time"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Update Result
+                </button>
+                <h1>{this.state.responseResultUpdated}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section>
+          <div className="page-header">
+            <h2>Delete Result </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestResultDelete}>
+              <div className="form-group">
+                  <label htmlFor="Result">Result ID</label>
+                  <input
+                    type="number"
+                    name="Result_id"
+                    id="Result_id"
+                    placeholder="Enter Result ID"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Delete Result
+                </button>
+                <h1>{this.state.responseResultDeleted}</h1>
               </form>
             </div>
           </div>
