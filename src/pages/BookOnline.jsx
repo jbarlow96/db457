@@ -49,13 +49,29 @@ export default class BookOnline extends Component {
       responseManSuccess: null,
       responseManDeleted: null,
       responseManUpdated: null,
+      // Manager Account
+      Man_id: '',
+      Uname: '',
+      Passwd: '',
+      responseManAccountSuccess: null,
+      responseManAccountDeleted: null,
+      responseManAccountUpdated: null,
       // Customer
       Cust_id: '',
       Fname: '',
       Lname: '',
-      responseCustSuccess: null,
-      responseCustUpdated: null,
-      responseCustDeleted: null,
+      responseCustomerSuccess: null,
+      responseCustomerUpdated: null,
+      responseCustomerDeleted: null,
+      // Customer Account
+      Cust_id: '',
+      Uname: '',
+      Passwd: '',
+      Email: '',
+      Phone: '',
+      responseCustAccountSuccess: null,
+      responseCustAccountDeleted: null,
+      responseCustAccountUpdated: null,
       // Merchandise
       Merch_id: '',
       Merch_type: '',
@@ -464,11 +480,74 @@ export default class BookOnline extends Component {
                 })
                 .catch(err => console.log('ERROR: ', err));
         };
+        // Add Manager Account
+        requestManAccountInfo = e => {
+            e.preventDefault();
+            const managerAccountBody = {
+                Man_id: this.state.Man_id,
+                Uname: this.state.Uname,
+                Passwd: this.state.Passwd,
+            };
+            fetch('http://localhost:4000/manageraccount', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(managerAccountBody)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('RESPONSE: ', data);
+                    this.setState({ responseManAccountSuccess: data.success });
+                })
+                .catch(err => console.log('ERROR: ', err));
+        };
+        // Manager Account Update
+        requestManAccountUpdate = e => {
+            e.preventDefault();
+            const managerAccountBody = {
+                Man_id: this.state.Man_id,
+                Uname: this.state.Uname,
+                Passwd: this.state.Passwd,
+            };
+            fetch('http://localhost:4000/updatemanageraccount/' + this.state.Man_id, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(managerAccountBody)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('RESPONSE: ', data);
+                    this.setState({ responseManAccountUpdated: data.success });
+                })
+                .catch(err => console.log('ERROR: ', err));
+        };
+        // Manager Account Delete
+        requestManAccountDelete = e => {
+            e.preventDefault();
+            console.log('http://localhost:4000/deletemanageraccount/' + this.state.Man_id);
+            fetch('http://localhost:4000/deletemanageraccount/' + this.state.Man_id, {
+                method: 'GET',
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: undefined
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('RESPONSE: ', data);
+                    this.setState({ responseManAccountDeleted: data.success });
+                })
+                .catch(err => console.log('ERROR: ', err));
+        };
         // Add Customer
         requestCustomerInfo = e => {
             e.preventDefault();
             const customerBody = {
-                Man_id: this.state.Cust_id,
+                Cust_id: this.state.Cust_id,
                 Fname: this.state.Fname,
                 Lname: this.state.Lname
             };
@@ -482,18 +561,121 @@ export default class BookOnline extends Component {
                 .then(response => response.json())
                 .then(data => {
                     console.log('RESPONSE: ', data);
-                    this.setState({ responseManSuccess: data.success });
+                    this.setState({ responseCustomerSuccess: data.success });
                 })
                 .catch(err => console.log('ERROR: ', err));
          };
 
 
-         // Update Customer
-
+        // Update Customer
+        requestCustomerUpdate = e => {
+            e.preventDefault();
+            const customerBody = {
+                Cust_id: this.state.Cust_id,
+                Fname: this.state.Fname,
+                Lname: this.state.Lname,
+            };
+            fetch('http://localhost:4000/updatecustomer/' + this.state.Cust_id, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(customerBody)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('RESPONSE: ', data);
+                    this.setState({ responseCustomerUpdated: data.success });
+                })
+                .catch(err => console.log('ERROR: ', err));
+        };
 
          // Delete Customer
-         
+        requestCustomerDelete = e => {
+            e.preventDefault();
+            console.log('http://localhost:4000/deletecustomer/' + this.state.Cust_id);
+            fetch('http://localhost:4000/deletecustomer/' + this.state.Cust_id, {
+                method: 'GET',
 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: undefined
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('RESPONSE: ', data);
+                    this.setState({ responseCustomerDeleted: data.success });
+                })
+                .catch(err => console.log('ERROR: ', err));
+        };
+        // Add Customer Account
+        requestCustomerAccountInfo = e => {
+            e.preventDefault();
+            const customerAccountBody = {
+                Cust_id: this.state.Cust_id,
+                Uname: this.state.Uname,
+                Passwd: this.state.Passwd,
+                Email: this.state.Email,
+                Phone: this.state.Phone
+            };
+            fetch('http://localhost:4000/customeraccount', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(customerAccountBody)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('RESPONSE: ', data);
+                    this.setState({ responseCustomerAccountSuccess: data.success });
+                })
+                .catch(err => console.log('ERROR: ', err));
+        };
+        // Update Customer Account
+        requestCustomerAccountUpdate = e => {
+            e.preventDefault();
+            const customerAccountBody = {
+                Cust_id: this.state.Cust_id,
+                Uname: this.state.Uname,
+                Passwd: this.state.Passwd,
+                Email: this.state.Email,
+                Phone: this.state.Phone
+            };
+            fetch('http://localhost:4000/updatecustomeraccount/' + this.state.Cust_id, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(customerAccountBody)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('RESPONSE: ', data);
+                    this.setState({ responseCustomerAccountUpdated: data.success });
+                })
+                .catch(err => console.log('ERROR: ', err));
+        };
+        // Delete Customer Account
+        requestCustomerAccountDelete = e => {
+            e.preventDefault();
+            console.log('http://localhost:4000/deletecustomeraccount/' + this.state.Cust_id);
+            fetch('http://localhost:4000/deletecustomeraccount/' + this.state.Cust_id, {
+                method: 'GET',
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: undefined
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('RESPONSE: ', data);
+                    this.setState({ responseCustomerAccountDeleted: data.success });
+                })
+                .catch(err => console.log('ERROR: ', err));
+        };
          // Add Merchandise
          requestMerchandiseInfo = e => {
           e.preventDefault();
@@ -1791,6 +1973,131 @@ export default class BookOnline extends Component {
             </section>
             <section>
                 <div className="page-header">
+                    <h2>Add Manager Account </h2>
+                </div>
+                <div className="row">
+                    <div className="col-md-6">
+                        <form onSubmit={this.requestManAccountInfo}>
+                            <div className="form-group">
+                                <input
+                                    type="number"
+                                    name="Man_id"
+                                    id="Man_id"
+                                    placeholder="Enter Manager ID #"
+                                    maxLength="12"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    name="Uname"
+                                    id="Uname"
+                                    placeholder="Username"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="password"
+                                    name="Passwd"
+                                    id="Passwd"
+                                    placeholder="Password"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <button type="submit" className="btn button btn-lg">
+                                Add Manager
+                </button>
+                            <h1>{this.state.responseManAccountSuccess}</h1>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div className="page-header">
+                    <h2>Update Manager Account</h2>
+                </div>
+                <div className="row">
+                    <div className="col-md-6">
+                        <form onSubmit={this.requestManAccountUpdate}>
+                            <div className="form-group">
+                                <input
+                                    type="number"
+                                    name="Man_id"
+                                    id="Man_id"
+                                    placeholder="Enter ID #"
+                                    maxLength="12"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    name="Uname"
+                                    id="Uname"
+                                    placeholder="First Name"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="password"
+                                    name="Passwd"
+                                    id="Passwd"
+                                    placeholder="Last Name"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <button type="submit" className="btn button btn-lg">
+                                Update Manager Account
+                </button>
+                            <h1>{this.state.responseManAccountUpdated}</h1>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div className="page-header">
+                    <h2>Delete Manager Account</h2>
+                </div>
+                <div className="row">
+                    <div className="col-md-6">
+                        <form onSubmit={this.requestManAccountDelete}>
+                            <div className="form-group">
+                                <label htmlFor="Manager">MANAGER ID</label>
+                                <input
+                                    type="number"
+                                    name="Man_id"
+                                    id="Man_id"
+                                    placeholder="Manager ID"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <button type="submit" className="btn button btn-lg">
+                                Delete Manager Account
+                </button>
+                            <h1>{this.state.responseManDeleted}</h1>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div className="page-header">
                     <h2>Add Customer </h2>
                 </div>
                 <div className="row">
@@ -1838,8 +2145,251 @@ export default class BookOnline extends Component {
                     </div>
                 </div>
             </section>
-
-
+            <section>
+                <div className="page-header">
+                    <h2>Update Customer </h2>
+                </div>
+                <div className="row">
+                    <div className="col-md-6">
+                        <form onSubmit={this.requestCustomerUpdate}>
+                            <div className="form-group">
+                                <input
+                                    type="number"
+                                    name="Cust_id"
+                                    id="Cust_id"
+                                    placeholder="Enter ID #"
+                                    maxLength="12"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    name="Fname"
+                                    id="Fname"
+                                    placeholder="First Name"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    name="Lname"
+                                    id="Lname"
+                                    placeholder="Last Name"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <button type="submit" className="btn button btn-lg">
+                                Update Customer
+                </button>
+                            <h1>{this.state.responseCustomerUpdated}</h1>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div className="page-header">
+                    <h2>Delete Customer </h2>
+                </div>
+                <div className="row">
+                    <div className="col-md-6">
+                        <form onSubmit={this.requestCustomerDelete}>
+                            <div className="form-group">
+                                <label htmlFor="Customer">CUSTOMER ID</label>
+                                <input
+                                    type="number"
+                                    name="Cust_id"
+                                    id="Cust_id"
+                                    placeholder="Customer ID"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <button type="submit" className="btn button btn-lg">
+                                Delete Customer
+                </button>
+                            <h1>{this.state.responseCustomerDeleted}</h1>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div className="page-header">
+                    <h2>Add Customer Account</h2>
+                </div>
+                <div className="row">
+                    <div className="col-md-6">
+                        <form onSubmit={this.requestCustomerAccountInfo}>
+                            <div className="form-group">
+                                <input
+                                    type="number"
+                                    name="Cust_id"
+                                    id="Cust_id"
+                                    placeholder="Enter Customer ID #"
+                                    maxLength="12"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="email"
+                                    name="Email"
+                                    id="Email"
+                                    placeholder="you@example.com"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    name="Phone"
+                                    id="Phone"
+                                    placeholder="Phone Number"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    name="Uname"
+                                    id="Uname"
+                                    placeholder="Username"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="password"
+                                    name="Passwd"
+                                    id="Passwd"
+                                    placeholder="Password"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <button type="submit" className="btn button btn-lg">
+                                Add Customer Account
+                </button>
+                            <h1>{this.state.responseCustomerAccountSuccess}</h1>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div className="page-header">
+                    <h2>Update Customer Account</h2>
+                </div>
+                <div className="row">
+                    <div className="col-md-6">
+                        <form onSubmit={this.requestCustomerAccountUpdate}>
+                            <div className="form-group">
+                                <input
+                                    type="number"
+                                    name="Cust_id"
+                                    id="Cust_id"
+                                    placeholder="Enter ID #"
+                                    maxLength="12"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="email"
+                                    name="Email"
+                                    id="Email"
+                                    placeholder="you@example.com"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    name="Phone"
+                                    id="Phone"
+                                    placeholder="Phone Number"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    name="Uname"
+                                    id="Uname"
+                                    placeholder="Username"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="password"
+                                    name="Passwd"
+                                    id="Passwd"
+                                    placeholder="Password"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <button type="submit" className="btn button btn-lg">
+                                Update Customer Account
+                </button>
+                            <h1>{this.state.responseCustomerAccountUpdated}</h1>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div className="page-header">
+                    <h2>Delete Customer Account </h2>
+                </div>
+                <div className="row">
+                    <div className="col-md-6">
+                        <form onSubmit={this.requestCustomerAccountDelete}>
+                            <div className="form-group">
+                                <label htmlFor="Customer">CUSTOMER ID</label>
+                                <input
+                                    type="number"
+                                    name="Cust_id"
+                                    id="Cust_id"
+                                    placeholder="Customer ID"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <button type="submit" className="btn button btn-lg">
+                                Delete Customer Account
+                </button>
+                            <h1>{this.state.responseCustomerAccountDeleted}</h1>
+                        </form>
+                    </div>
+                </div>
+            </section>
             <section>
           <div className="page-header">
             <h2>Add Merchandise </h2>
