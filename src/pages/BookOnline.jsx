@@ -1451,9 +1451,9 @@ export default class BookOnline extends Component {
                             <div className="form-group">
                                 <input
                                     type="number"
-                                    name="Man_id"
-                                    id="Man_id"
-                                    placeholder="Enter Manager ID #"
+                                    name="Cust_id"
+                                    id="Cust_id"
+                                    placeholder="Enter Customer ID #"
                                     maxLength="12"
                                     className="form-control input-lg"
                                     required
@@ -1485,7 +1485,7 @@ export default class BookOnline extends Component {
                             <button type="submit" className="btn button btn-lg">
                                 Add Customer
                 </button>
-                            <h1>{this.state.responseCustSuccess}</h1>
+                            <h1>{this.state.responseCustomerSuccess}</h1>
                         </form>
                     </div>
                 </div>
