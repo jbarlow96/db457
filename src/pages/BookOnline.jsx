@@ -64,7 +64,16 @@ export default class BookOnline extends Component {
       Merch_count: '',
       responseMerchSuccess: null,
       responseMerchUpdated: null,
-      responseMerchDeleted: null
+      responseMerchDeleted: null,
+      // Piercing
+      Pierce_no: '', 
+      Cust_id: '',
+      Pierce_type: '',
+      Price: '',
+      Equip_id: '',
+      responsePiercingSuccess: null,
+      responsePiercingUpdated: null,
+      responsePiercingDeleted: null
 
 
      
@@ -532,6 +541,77 @@ export default class BookOnline extends Component {
             })
             .catch(err => console.log('ERROR: ', err));
           };
+
+          // Add Piercing
+          requestPiercingInfo = e => {
+            e.preventDefault();
+            const piercingBody = {
+              Pierce_no: this.state.Pierce_no,
+              Cust_id: this.state.Cust_id,
+              Pierce_type: this.state.Pierce_type,
+              Price: this.state.Price,
+              Equip_id: this.state.Equip_id
+            };
+            fetch('http://localhost:4000/piercing', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(piercingBody)
+            })
+              .then(response => response.json())
+              .then(data => {
+                console.log('RESPONSE: ', data);
+                this.setState({ responsePiercingSuccess: data.success });
+              })
+              .catch(err => console.log('ERROR: ', err));
+          };
+
+          // Update Piercing
+          requestPiercingUpdate = e => {
+            e.preventDefault();
+            const piercingBody = {
+              Pierce_no: this.state.Pierce_no,
+              Cust_id: this.state.Cust_id,
+              Pierce_type: this.state.Pierce_type,
+              Price: this.state.Price,
+              Equip_id: this.state.Equip_id
+            };
+            fetch('http://localhost:4000/updatepiercing/'+this.state.Pierce_no, {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(piercingBody)
+            })
+              .then(response => response.json())
+              .then(data => {
+                console.log('RESPONSE: ', data);
+                this.setState({ responsePiercingUpdated: data.success });
+              })
+              .catch(err => console.log('ERROR: ', err));
+            };
+
+            // Delete Piercing
+            requestPiercingDelete = e =>{
+              e.preventDefault();
+            console.log('http://localhost:4000/deletepiercing/'+this.state.Pierce_no);
+            fetch('http://localhost:4000/deletepiercing/'+this.state.Pierce_no, {
+              method: 'GET',
+             
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: undefined
+            })
+              .then(response => response.json())
+              .then(data => {
+                console.log('RESPONSE: ', data);
+                this.setState({ responsePiercingDeleted: data.success });
+              })
+              .catch(err => console.log('ERROR: ', err));
+            };
+
 
   render() {
     return (
@@ -1762,6 +1842,193 @@ export default class BookOnline extends Component {
             </div>
           </div>
         </section>
+
+
+
+        <section>
+          <div className="page-header">
+            <h2>Create Piercing </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestPiercingInfo}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Pierce_no"
+                    id="Pierce_no"
+                    placeholder="Enter Pierce #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Cust_id"
+                    id="Cust_id"
+                    placeholder="Enter Cust #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Pierce_type"
+                    id="Pierce_type"
+                    placeholder="Enter Pierce Type #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Price"
+                    id="Price"
+                    placeholder="Enter Price"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Equip_id"
+                    id="Equip_id"
+                    placeholder="Equipment ID"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Create Piercing
+                </button>
+                <h1>{this.state.responsePiercingSuccess}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section>
+          <div className="page-header">
+            <h2>Update Piercing </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestPiercingUpdate}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Pierce_no"
+                    id="Pierce_no"
+                    placeholder="Enter Pierce #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Cust_id"
+                    id="Cust_id"
+                    placeholder="Enter Cust #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Pierce_type"
+                    id="Pierce_type"
+                    placeholder="Enter Pierce Type #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Price"
+                    id="Price"
+                    placeholder="Enter Price"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Equip_id"
+                    id="Equip_id"
+                    placeholder="Equipment ID"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Update Piercing
+                </button>
+                <h1>{this.state.responsePiercingUpdated}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section>
+          <div className="page-header">
+            <h2>Delete Piercing </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestPiercingDelete}>
+              <div className="form-group">
+                  <label htmlFor="Inventory">Piercing No</label>
+                  <input
+                    type="number"
+                    name="Pierce_no"
+                    id="Pierce_no"
+                    placeholder="Enter Pierce Number"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Delete Piercing
+                </button>
+                <h1>{this.state.responsePiercingDeleted}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
 
 
       </main>
