@@ -40,7 +40,17 @@ export default class BookOnline extends Component {
       Equip_id: '',
       responseInventorySuccess: null,
       responseInventoryDeleted: null,
-      responseInventoryUpdated: null
+      responseInventoryUpdated: null,
+      // Manager
+      Man_id: '',
+      Fname: '',
+      Lname: '',
+      Shop_id: '',
+      responseManSuccess: null,
+      responseManDeleted: null,
+      responseManUpdated: null
+
+
 
      
     };
@@ -342,7 +352,29 @@ export default class BookOnline extends Component {
           })
           .catch(err => console.log('ERROR: ', err));
         };
-  
+        // Add Manager
+        requestManInfo = e => {
+            e.preventDefault();
+            const managerBody = {
+                Man_id: this.state.Man_id,
+                Fname: this.state.Fname,
+                Lname: this.state.Lname,
+                Shop_id: this.state.Shop_id,
+            };
+            fetch('http://localhost:4000/addmanager', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(managerBody)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('RESPONSE: ', data);
+                    this.setState({ responseManSuccess: data.success });
+                })
+                .catch(err => console.log('ERROR: ', err));
+        };
   render() {
     return (
       <main>
@@ -1190,7 +1222,70 @@ export default class BookOnline extends Component {
             </div>
           </div>
         </section>
-        
+            <section>
+                <div className="page-header">
+                    <h2>Add Manager </h2>
+                </div>
+                <div className="row">
+                    <div className="col-md-6">
+                        <form onSubmit={this.requestManInfo}>
+                            <div className="form-group">
+                                <input
+                                    type="number"
+                                    name="Man_id"
+                                    id="Man_id"
+                                    placeholder="Enter Manager ID #"
+                                    maxLength="12"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    name="Fname"
+                                    id="Fname"
+                                    placeholder="First Name"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    name="Lname"
+                                    id="Lname"
+                                    placeholder="Last Name"
+                                    className="form-control input-lg"
+                                    required
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="Shop_id">Shop_id</label>
+                                <select
+                                    className="form-control input-lg"
+                                    name="Shop_id"
+                                    id="Shop_id"
+                                    required
+                                    onChange={this.handleChange}
+                                >
+                                    <option value="">Please Select...</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
+                            <button type="submit" className="btn button btn-lg">
+                                Add Manager
+                </button>
+                            <h1>{this.state.responseManSuccess}</h1>
+                        </form>
+                    </div>
+                </div>
+            </section>
 
 
       </main>
