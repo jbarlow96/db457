@@ -55,7 +55,16 @@ export default class BookOnline extends Component {
       Lname: '',
       responseCustSuccess: null,
       responseCustUpdated: null,
-      responseCustDeleted: null
+      responseCustDeleted: null,
+      // Merchandise
+      Merch_id: '',
+      Merch_type: '',
+      Merch_name: '',
+      Merch_price: '',
+      Merch_count: '',
+      responseMerchSuccess: null,
+      responseMerchUpdated: null,
+      responseMerchDeleted: null
 
 
      
@@ -358,6 +367,7 @@ export default class BookOnline extends Component {
           })
           .catch(err => console.log('ERROR: ', err));
         };
+
         // Add Manager
         requestManInfo = e => {
             e.preventDefault();
@@ -390,7 +400,7 @@ export default class BookOnline extends Component {
                 Lname: this.state.Lname,
                 Shop_id: this.state.Shop_id,
             };
-            fetch('http://localhost:4000/updatemanager'+this.state.Man_id, {
+            fetch('http://localhost:4000/updatemanager/'+this.state.Man_id, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
@@ -407,8 +417,8 @@ export default class BookOnline extends Component {
         // Manager Deleted
         requestManDelete = e => {
             e.preventDefault();
-            console.log('http://localhost:4000/deletemanager' + this.state.Man_id);
-            fetch('http://localhost:4000/deletemanager' + this.state.Man_id, {
+            console.log('http://localhost:4000/deletemanager/' + this.state.Man_id);
+            fetch('http://localhost:4000/deletemanager/' + this.state.Man_id, {
                 method: 'GET',
 
                 headers: {
@@ -429,7 +439,7 @@ export default class BookOnline extends Component {
             const customerBody = {
                 Man_id: this.state.Cust_id,
                 Fname: this.state.Fname,
-                Lname: this.state.Lname,
+                Lname: this.state.Lname
             };
             fetch('http://localhost:4000/customer', {
                 method: 'POST',
@@ -444,7 +454,85 @@ export default class BookOnline extends Component {
                     this.setState({ responseManSuccess: data.success });
                 })
                 .catch(err => console.log('ERROR: ', err));
+         };
+
+
+         // Update Customer
+
+
+         // Delete Customer
+         
+
+         // Add Merchandise
+         requestMerchandiseInfo = e => {
+          e.preventDefault();
+          const merchandiseBody = {
+            Merch_id: this.state.Merch_id,
+            Merch_type: this.state.Merch_type,
+            Merch_name: this.state.Merch_name,
+            Merch_price: this.state.Merch_price,
+            Merch_count: this.state.Merch_count
+          };
+          fetch('http://localhost:4000/merchandise', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(merchandiseBody)
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log('RESPONSE: ', data);
+              this.setState({ responseMerchSuccess: data.success });
+            })
+            .catch(err => console.log('ERROR: ', err));
         };
+
+          // Update Merchandise
+          requestMerchandiseUpdate = e => {
+            e.preventDefault();
+            const merchandiseBody = {
+              Merch_id: this.state.Merch_id,
+              Merch_type: this.state.Merch_type,
+              Merch_name: this.state.Merch_name,
+              Merch_price: this.state.Merch_price,
+              Merch_count: this.state.Merch_count
+            };
+            fetch('http://localhost:4000/updatemerchandise/'+this.state.Merch_id, {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(merchandiseBody)
+            })
+              .then(response => response.json())
+              .then(data => {
+                console.log('RESPONSE: ', data);
+                this.setState({ responseMerchUpdated: data.success });
+              })
+              .catch(err => console.log('ERROR: ', err));
+          };
+
+          // Delete Merchandise
+          requestMerchandiseDelete = e =>{
+            e.preventDefault();
+          console.log('http://localhost:4000/deletemerchandise/'+this.state.Merch_id);
+          fetch('http://localhost:4000/deletemerchandise/'+this.state.Merch_id, {
+            method: 'GET',
+           
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: undefined
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log('RESPONSE: ', data);
+              this.setState({ responseMerchDeleted: data.success });
+            })
+            .catch(err => console.log('ERROR: ', err));
+          };
+
   render() {
     return (
       <main>
@@ -1292,6 +1380,9 @@ export default class BookOnline extends Component {
             </div>
           </div>
         </section>
+        
+
+
             <section>
                 <div className="page-header">
                     <h2>Add Manager </h2>
@@ -1496,6 +1587,183 @@ export default class BookOnline extends Component {
                     </div>
                 </div>
             </section>
+
+
+            <section>
+          <div className="page-header">
+            <h2>Add Merchandise </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestMerchandiseInfo}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Merch_id"
+                    id="Merch_id"
+                    placeholder="Enter #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="Merch_type"
+                    id="Merch_type"
+                    placeholder="Type of Merchandise"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="Merch_name"
+                    id="Merch_name"
+                    placeholder="Name of Merchandise"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Merch_price"
+                    id="Merch_price"
+                    placeholder="Price"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Merch_count"
+                    id="Merch_count"
+                    placeholder="Current stock"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Create Merchandise
+                </button>
+                <h1>{this.state.responseMerchSuccess}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+        <section>
+          <div className="page-header">
+            <h2>Update Merchandise </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestMerchandiseUpdate}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Merch_id"
+                    id="Merch_id"
+                    placeholder="Enter #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="Merch_type"
+                    id="Merch_type"
+                    placeholder="Type of Merchandise"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="Merch_name"
+                    id="Merch_name"
+                    placeholder="Name of Merchandise"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Merch_price"
+                    id="Merch_price"
+                    placeholder="Price"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Merch_count"
+                    id="Merch_count"
+                    placeholder="Current stock"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Update Merchandise
+                </button>
+                <h1>{this.state.responseMerchUpdated}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+        <section>
+          <div className="page-header">
+            <h2>Delete Merchandise </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestMerchandiseDelete}>
+              <div className="form-group">
+                  <label htmlFor="Inventory">Merchandise ID</label>
+                  <input
+                    type="number"
+                    name="Merch_id"
+                    id="Merch_id"
+                    placeholder="Merchandise ID"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Delete Merchandise
+                </button>
+                <h1>{this.state.responseMerchDeleted}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
       </main>
     );
     }
