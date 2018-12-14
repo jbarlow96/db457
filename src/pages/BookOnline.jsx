@@ -1482,25 +1482,10 @@ export default class BookOnline extends Component {
                                     onChange={this.handleChange}
                                 />
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="Shop_id">Shop_id</label>
-                                <select
-                                    className="form-control input-lg"
-                                    name="Shop_id"
-                                    id="Shop_id"
-                                    required
-                                    onChange={this.handleChange}
-                                >
-                                    <option value="">Please Select...</option>
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                </select>
-                            </div>
                             <button type="submit" className="btn button btn-lg">
-                                Add Manager
+                                Add Customer
                 </button>
-                            <h1>{this.state.responseManSuccess}</h1>
+                            <h1>{this.state.responseCustSuccess}</h1>
                         </form>
                     </div>
                 </div>
