@@ -48,8 +48,14 @@ export default class BookOnline extends Component {
       Shop_id: '',
       responseManSuccess: null,
       responseManDeleted: null,
-      responseManUpdated: null
-
+      responseManUpdated: null,
+      // Customer
+      Cust_id: '',
+      Fname: '',
+      Lname: '',
+      responseCustSuccess: null,
+      responseCustUpdated: null,
+      responseCustDeleted: null
 
 
      
