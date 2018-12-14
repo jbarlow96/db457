@@ -112,7 +112,31 @@ export default class BookOnline extends Component {
       End_time: '',
       responseResultSuccess: null,
       responseResultUpdated: null,
-      responseResultDeleted: null
+      responseResultDeleted: null,
+      // Waiver Policy
+      Pol_id: '',
+      Pol_signed: '', 
+      Pol_date: '',
+      Cust_id: '',
+      responseWaiverPolicySuccess: null,
+      responseWaiverPolicyUpdated: null,
+      responseWaiverPolicyDeleted: null,
+      // Cancellation Policy
+      Pol_id: '',
+      Pol_signed: '', 
+      Pol_date: '',
+      Cust_id: '',
+      responseCancellationPolicySuccess: null,
+      responseCancellationPolicyUpdated: null,
+      responseCancellationPolicyDeleted: null,
+      // Owner
+      Own_id: '',
+      Fname: '',
+      Lname: '',
+      Shop_id: '',
+      responseShopOwnerSuccess: null,
+      responseShopOwnerUpdated: null,
+      responseShopOwnerDeleted: null
     };
   }
 
@@ -147,6 +171,7 @@ export default class BookOnline extends Component {
       })
       .catch(err => console.log('ERROR: ', err));
   };
+
       // Update Reservation
       requestUpdate = e =>{
         e.preventDefault();
@@ -962,6 +987,210 @@ export default class BookOnline extends Component {
                   .then(data => {
                     console.log('RESPONSE: ', data);
                     this.setState({ responseResultDeleted: data.success });
+                  })
+                  .catch(err => console.log('ERROR: ', err));
+                };
+
+                // add waiver policy
+                requestWaiverPolicyInfo = e => {
+                  e.preventDefault();
+                  const waiver_policyBody = {
+                    Pol_id: this.state.Pol_id, 
+                    Pol_signed: this.state.Pol_signed,
+                    Pol_date: this.state.Pol_date,
+                    Cust_id: this.state.Cust_id
+                  };
+                  fetch('http://localhost:4000/waiverpolicy', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(waiver_policyBody)
+                  })
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log('RESPONSE: ', data);
+                      this.setState({ responseWaiverPolicySuccess: data.success });
+                    })
+                    .catch(err => console.log('ERROR: ', err));
+                };
+
+                // Update Waiver Policy
+                requestWaiverPolicyUpdate = e => {
+                  e.preventDefault();
+                  const waiver_policyBody = {
+                    Pol_id: this.state.Pol_id, 
+                    Pol_signed: this.state.Pol_signed,
+                    Pol_date: this.state.Pol_date,
+                    Cust_id: this.state.Cust_id
+                  };
+                  fetch('http://localhost:4000/updatewaiverpolicy/'+this.state.Pol_id, {
+                    method: 'PATCH',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(waiver_policyBody)
+                  })
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log('RESPONSE: ', data);
+                      this.setState({ responseWaiverPolicyUpdated: data.success });
+                    })
+                    .catch(err => console.log('ERROR: ', err));
+                  };
+
+                // Delete Waiver Policy
+                requestWaiverPolicyDelete = e =>{
+                  e.preventDefault();
+                console.log('http://localhost:4000/deletewaiverpolicy/'+this.state.Pol_id);
+                fetch('http://localhost:4000/deletewaiverpolicy/'+this.state.Pol_id, {
+                  method: 'GET',
+                 
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: undefined
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    console.log('RESPONSE: ', data);
+                    this.setState({ responseWaiverPolicyDeleted: data.success });
+                  })
+                  .catch(err => console.log('ERROR: ', err));
+                };
+
+                // Add Cancellation Policy
+                requestCancellationPolicyInfo = e => {
+                  e.preventDefault();
+                  const cancellation_policyBody = {
+                    Pol_id: this.state.Pol_id, 
+                    Pol_signed: this.state.Pol_signed,
+                    Pol_date: this.state.Pol_date,
+                    Cust_id: this.state.Cust_id
+                  };
+                  fetch('http://localhost:4000/addcancellationpolicy', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(cancellation_policyBody)
+                  })
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log('RESPONSE: ', data);
+                      this.setState({ responseCancellationPolicySuccess: data.success });
+                    })
+                    .catch(err => console.log('ERROR: ', err));
+                };
+
+                // Update Cancellation Policy
+                requestCancellationPolicyUpdate = e => {
+                  e.preventDefault();
+                  const cancellation_policyBody = {
+                    Pol_id: this.state.Pol_id, 
+                    Pol_signed: this.state.Pol_signed,
+                    Pol_date: this.state.Pol_date,
+                    Cust_id: this.state.Cust_id
+                  };
+                  fetch('http://localhost:4000/updatecancellationpolicy/'+this.state.Pol_id, {
+                    method: 'PATCH',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(cancellation_policyBody)
+                  })
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log('RESPONSE: ', data);
+                      this.setState({ responseCancellationPolicyUpdated: data.success });
+                    })
+                    .catch(err => console.log('ERROR: ', err));
+                  };
+
+                // Delete Cancellation Policy
+                requestCancellationPolicyDelete = e =>{
+                  e.preventDefault();
+                console.log('http://localhost:4000/deletecancellationpolicy/'+this.state.Pol_id);
+                fetch('http://localhost:4000/deletecancellationpolicy/'+this.state.Pol_id, {
+                  method: 'GET',
+                 
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: undefined
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    console.log('RESPONSE: ', data);
+                    this.setState({ responseCancellationPolicyDeleted: data.success });
+                  })
+                  .catch(err => console.log('ERROR: ', err));
+                };
+
+                // Add Shop Owner
+                requestShopOwnerInfo = e => {
+                  e.preventDefault();
+                  const shop_ownerBody = {
+                    Own_id: this.state.Own_id,
+                    Fname: this.state.Fname,
+                    Lname: this.state.Lname,
+                    Shop_id: this.state.Shop_id
+                  };
+                  fetch('http://localhost:4000/addshopowner', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(shop_ownerBody)
+                  })
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log('RESPONSE: ', data);
+                      this.setState({ responseShopOwnerSuccess: data.success });
+                    })
+                    .catch(err => console.log('ERROR: ', err));
+                  };
+
+                // Update Shop Owner
+                requestShopOwnerUpdate = e => {
+                  e.preventDefault();
+                  const shop_ownerBody = {
+                    Own_id: this.state.Own_id,
+                    Fname: this.state.Fname,
+                    Lname: this.state.Lname,
+                    Shop_id: this.state.Shop_id
+                  };
+                  fetch('http://localhost:4000/updateshopowner/'+this.state.Own_id, {
+                    method: 'PATCH',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(shop_ownerBody)
+                  })
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log('RESPONSE: ', data);
+                      this.setState({ responseShopOwnerUpdated: data.success });
+                    })
+                    .catch(err => console.log('ERROR: ', err));
+                  };
+
+                // Delete Shop Owner
+                requestShopOwnerDelete = e =>{
+                  e.preventDefault();
+                console.log('http://localhost:4000/deleteshopowner/'+this.state.Own_id);
+                fetch('http://localhost:4000/deleteshopowner/'+this.state.Own_id, {
+                  method: 'GET',
+                 
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: undefined
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    console.log('RESPONSE: ', data);
+                    this.setState({ responseShopOwnerDeleted: data.success });
                   })
                   .catch(err => console.log('ERROR: ', err));
                 };
@@ -3248,6 +3477,495 @@ export default class BookOnline extends Component {
                   Delete Result
                 </button>
                 <h1>{this.state.responseResultDeleted}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section>
+          <div className="page-header">
+            <h2>Create Waiver Policy </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestWaiverPolicyInfo}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Pol_id"
+                    id="Pol_id"
+                    placeholder="Enter Policy #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Pol_signed"
+                    id="Pol_signed"
+                    placeholder="Policy Sign #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                <label htmlFor="Res_date">Policy Date</label>
+                  <input
+                    type="date"
+                    name="Pol_date"
+                    id="Pol_date"
+                    placeholder="MM/DD/YYYY"
+                    maxLength="10"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Cust_id"
+                    id="Cust_id"
+                    placeholder="Cust ID #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Create Waiver Policy
+                </button>
+                <h1>{this.state.responseWaiverPolicySuccess}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section>
+          <div className="page-header">
+            <h2>Update Waiver Policy </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestWaiverPolicyUpdate}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Pol_id"
+                    id="Pol_id"
+                    placeholder="Enter Policy #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Pol_signed"
+                    id="Pol_signed"
+                    placeholder="Policy Sign #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                <label htmlFor="Res_date">Policy Date</label>
+                  <input
+                    type="date"
+                    name="Pol_date"
+                    id="Pol_date"
+                    placeholder="MM/DD/YYYY"
+                    maxLength="10"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Cust_id"
+                    id="Cust_id"
+                    placeholder="Cust ID #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Update Waiver Policy
+                </button>
+                <h1>{this.state.responseWaiverPolicyUpdated}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+        <section>
+          <div className="page-header">
+            <h2>Delete Waiver Policy </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestWaiverPolicyDelete}>
+              <div className="form-group">
+                  <label htmlFor="Result">Policy ID</label>
+                  <input
+                    type="number"
+                    name="Pol_id"
+                    id="Pol_id"
+                    placeholder="Enter Result ID"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Delete Waiver Policy
+                </button>
+                <h1>{this.state.responseWaiverPolicyDeleted}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section>
+          <div className="page-header">
+            <h2>Create Cancellation Policy </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestCancellationPolicyInfo}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Pol_id"
+                    id="Pol_id"
+                    placeholder="Enter Policy #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Pol_signed"
+                    id="Pol_signed"
+                    placeholder="Policy Sign #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                <label htmlFor="Res_date">Policy Date</label>
+                  <input
+                    type="date"
+                    name="Pol_date"
+                    id="Pol_date"
+                    placeholder="MM/DD/YYYY"
+                    maxLength="10"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Cust_id"
+                    id="Cust_id"
+                    placeholder="Cust ID #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Create Cancellation Policy
+                </button>
+                <h1>{this.state.responseCancellationPolicySuccess}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section>
+          <div className="page-header">
+            <h2>Update Cancellation Policy </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestCancellationPolicyUpdate}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Pol_id"
+                    id="Pol_id"
+                    placeholder="Enter Policy #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Pol_signed"
+                    id="Pol_signed"
+                    placeholder="Policy Sign #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                <label htmlFor="Res_date">Policy Date</label>
+                  <input
+                    type="date"
+                    name="Pol_date"
+                    id="Pol_date"
+                    placeholder="MM/DD/YYYY"
+                    maxLength="10"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="Cust_id"
+                    id="Cust_id"
+                    placeholder="Cust ID #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Update Cancellation Policy
+                </button>
+                <h1>{this.state.responseCancellationPolicyUpdated}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+        <section>
+          <div className="page-header">
+            <h2>Delete Cancellation Policy </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestCancellationPolicyDelete}>
+              <div className="form-group">
+                  <label htmlFor="Result">Policy ID</label>
+                  <input
+                    type="number"
+                    name="Pol_id"
+                    id="Pol_id"
+                    placeholder="Enter Result ID"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Delete Cancellation Policy
+                </button>
+                <h1>{this.state.responseCancellationPolicyDeleted}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section>
+          <div className="page-header">
+            <h2>Add Shop Owner </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestShopOwnerInfo}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Own_id"
+                    id="Own_id"
+                    placeholder="Enter Unique ID #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="Fname"
+                    id="Fname"
+                    placeholder="First Name"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="Lname"
+                    id="Lname"
+                    placeholder="Last Name"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                                <label htmlFor="Shop_id">Shop_id</label>
+                                <select
+                                    className="form-control input-lg"
+                                    name="Shop_id"
+                                    id="Shop_id"
+                                    required
+                                    onChange={this.handleChange}
+                                >
+                                    <option value="">Please Select...</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
+                <button type="submit" className="btn button btn-lg">
+                  Create Shop Owner
+                </button>
+                <h1>{this.state.responseShopOwnerSuccess}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section>
+          <div className="page-header">
+            <h2>Update Shop Owner </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestShopOwnerUpdate}>
+              <div className="form-group">
+                  <input
+                    type="number"
+                    name="Own_id"
+                    id="Own_id"
+                    placeholder="Enter Unique ID #"
+                    maxLength="12"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="Fname"
+                    id="Fname"
+                    placeholder="First Name"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="Lname"
+                    id="Lname"
+                    placeholder="Last Name"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                                <label htmlFor="Shop_id">Shop_id</label>
+                                <select
+                                    className="form-control input-lg"
+                                    name="Shop_id"
+                                    id="Shop_id"
+                                    required
+                                    onChange={this.handleChange}
+                                >
+                                    <option value="">Please Select...</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
+                <button type="submit" className="btn button btn-lg">
+                  Update Shop Owner
+                </button>
+                <h1>{this.state.responseShopOwnerUpdated}</h1>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+        <section>
+          <div className="page-header">
+            <h2>Delete Shop Owner </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <form onSubmit={this.requestShopOwnerDelete}>
+              <div className="form-group">
+                  <label htmlFor="Result">Shop Owner ID</label>
+                  <input
+                    type="number"
+                    name="Own_id"
+                    id="Own_id"
+                    placeholder="Enter Owner ID"
+                    className="form-control input-lg"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <button type="submit" className="btn button btn-lg">
+                  Delete Shop Owner
+                </button>
+                <h1>{this.state.responseShopOwnerDeleted}</h1>
               </form>
             </div>
           </div>
